@@ -1,0 +1,3 @@
+$(() => {
+    $('#circle').draggable({containment: 'document'});
+});
