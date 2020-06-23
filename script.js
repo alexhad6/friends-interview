@@ -1,20 +1,23 @@
 $(() => {
+    // Define variables for drawing on canvas
     const lines = [];
     const canvas = $('#canvas');
     const ctx = canvas[0].getContext('2d');
-    
     let p = {x: 0, y: 0}
     let draw = false;
-    
-    const setCanvas = () => {
+    const initCanvas = () => {
         ctx.canvas.width = $('body').width();
         ctx.canvas.height = $('body').height();
         ctx.lineWidth = '5';
         ctx.lineCap = 'round';
     }
 
+    // Make the circle draggable
+    $('#circle').draggable({containment: 'body'});
+
+    // Update canvas when resized
     $(window).resize(() => {
-        setCanvas();
+        initCanvas();
         for (const line of lines) {
             ctx.beginPath();
             ctx.moveTo(line[0][0], line[0][1]);
@@ -23,22 +26,12 @@ $(() => {
         }
     });
 
-    $('#circle').draggable({containment: 'body'});
+    // Update draw variable when mouse is pressed
+    canvas.mousedown((e) => { p.x = e.clientX; p.y = e.clientY; draw = true; });
+    canvas.mouseup((e) => { draw = false; });
+    canvas.mouseleave((e) => { draw = false; });
 
-    canvas.mousedown((e) => {
-        p.x = e.clientX;
-        p.y = e.clientY;
-        draw = true;
-    });
-
-    canvas.mouseup((e) => {
-        draw = false;
-    });
-
-    canvas.mouseleave((e) => {
-        draw = false;
-    });
-
+    // Draw a line when the mouse is moved
     canvas.mousemove((e) => {
         if (draw) {
             ctx.beginPath();
@@ -51,5 +44,6 @@ $(() => {
         }
     });
 
-    setCanvas();
+    // Initialize canvas
+    initCanvas();
 });
