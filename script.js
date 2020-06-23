@@ -1,32 +1,33 @@
 $(() => {
+    const lines = [];
     const canvas = $('#canvas');
     const ctx = canvas[0].getContext('2d');
-    ctx.canvas.width = $(document).width();
-    ctx.canvas.height = $(document).height();
-
-    $(window).resize(() => {
-        ctx.canvas.width = $(document).width();
-        ctx.canvas.height = $(document).height();
-        ctx.lineWidth = '5';
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(points[0][0], points[0][1]);
-        for (const point of points) {
-            ctx.lineTo(point[0], point[1]);
-        }
-        ctx.stroke();
-    });
-
-    $('#circle').draggable({containment: 'document'});
-
-    const points = [];
+    
     let p = {x: 0, y: 0}
     let draw = false;
+    
+    const setCanvas = () => {
+        ctx.canvas.width = $('body').width();
+        ctx.canvas.height = $('body').height();
+        ctx.lineWidth = '5';
+        ctx.lineCap = 'round';
+    }
+
+    $(window).resize(() => {
+        setCanvas();
+        for (const line of lines) {
+            ctx.beginPath();
+            ctx.moveTo(line[0][0], line[0][1]);
+            ctx.lineTo(line[1][0], line[1][1]);
+            ctx.stroke();
+        }
+    });
+
+    $('#circle').draggable({containment: 'body'});
 
     canvas.mousedown((e) => {
         p.x = e.clientX;
         p.y = e.clientY;
-        points.push([p.x, p.y]);
         draw = true;
     });
 
@@ -40,15 +41,15 @@ $(() => {
 
     canvas.mousemove((e) => {
         if (draw) {
-            ctx.lineWidth = '5';
-            ctx.lineCap = 'round';
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+            lines.push([[p.x, p.y], [e.clientX, e.clientY]]);
             p.x = e.clientX;
             p.y = e.clientY;
-            points.push([p.x, p.y]);
-            ctx.lineTo(p.x, p.y);
-            ctx.stroke();
         }
     });
+
+    setCanvas();
 });
