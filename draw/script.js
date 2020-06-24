@@ -12,9 +12,6 @@ $(() => {
         ctx.lineCap = 'round';
     }
 
-    // Make the circle draggable
-    $('#circle').draggable({containment: 'body'});
-
     // Update canvas when resized
     $(window).resize(() => {
         initCanvas();

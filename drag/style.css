@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #ccc;
+}
+
+#circle {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: #507dff;
+    cursor: move;
+}
