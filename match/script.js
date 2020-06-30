@@ -6,8 +6,14 @@ $(() => {
     let p = {x: 0, y: 0}
     let draw = false;
     const initCanvas = () => {
-        ctx.canvas.width = $('body').width();
-        ctx.canvas.height = $('body').height();
+        const width = $('body').width();
+        const height = $('body').height();
+        const scale = window.devicePixelRatio;
+        canvas.width(width);
+        canvas.height(height);
+        canvas[0].width = Math.floor(width * scale);
+        canvas[0].height = Math.floor(height * scale);
+        ctx.scale(scale, scale);
         ctx.lineWidth = '5';
         ctx.lineCap = 'round';
     }

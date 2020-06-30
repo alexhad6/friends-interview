@@ -1,18 +1,40 @@
+:root {
+    --tile-size: 250px;
+    --tile-gap: 75px;
+}
+
 body {
     margin: 0;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: #ccc;
 }
 
-#circle {
+#tiles {
+    width: 100vw;
+    height: 100vh;
+}
+
+.tile {
     position: absolute;
-    top: 25px;
-    left: 25px;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: #507dff;
+    top: calc((100vh - var(--tile-size))/2);
+    width: var(--tile-size);
+    height: var(--tile-size);
+    border-radius: 25%;
     cursor: move;
+}
+
+#blue {
+    left: calc((100vw - var(--tile-size)*3 - var(--tile-gap)*2)/2);
+    background: #507dff;
+}
+
+#yellow {
+    left: calc((100vw - var(--tile-size)*3 - var(--tile-gap)*2)/2 + var(--tile-size)*1 + var(--tile-gap)*1);
+    background: #e0d619;
+}
+
+#red {
+    left: calc((100vw - var(--tile-size)*3 - var(--tile-gap)*2)/2 + var(--tile-size)*2 + var(--tile-gap)*2);
+    background: #de0000;
 }

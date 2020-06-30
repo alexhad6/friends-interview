@@ -1,4 +1,4 @@
 $(() => {
-    // Make the circle draggable
-    $('#circle').draggable({containment: 'body'});
+    // Make the tiles draggable
+    $('.tile').draggable({containment: 'body'});
 });
