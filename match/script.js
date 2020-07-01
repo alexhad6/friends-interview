@@ -34,8 +34,25 @@ $(() => {
     canvas.mouseup((e) => { draw = false; });
     canvas.mouseleave((e) => { draw = false; });
 
+    canvas.on('touchstart', (e) => { p.x = e.clientX; p.y = e.clientY; draw = true; });
+    canvas.on('touchend', (e) => { draw = false; });
+    canvas.on('touchcancel', (e) => { draw = false; });
+    
+
     // Draw a line when the mouse is moved
     canvas.mousemove((e) => {
+        if (draw) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+            lines.push([[p.x, p.y], [e.clientX, e.clientY]]);
+            p.x = e.clientX;
+            p.y = e.clientY;
+        }
+    });
+
+    canvas.on('touchmove', (e) => {
         if (draw) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
